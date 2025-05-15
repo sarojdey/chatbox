@@ -16,6 +16,16 @@ dotenv.config();
 const PORT = process.env.PORT;
 const __dirname = path.resolve();
 
+app.get("/ping", (req, res) => {
+  res.send("pong");
+});
+
+setInterval(() => {
+  fetch(process.env.SELF_URL)
+    .then((res) => console.log(`Self-ping: ${res.status}`))
+    .catch((err) => console.error("Self-ping failed:", err.message));
+}, 10 * 60 * 1000);
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
